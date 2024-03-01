@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  flask-app:
+    image: shoaibmohmad/python-flask-app:0.0.1.RELEASE
+    ports:
+      - "3100:3100"
+    restart: always
+    networks:
+      - express-flask-network
+
+  express-app:
+    image: shoaibmohmad/node-express-app:0.0.1.RELEASE
+    ports:
+      - "3000:3000"
+    restart: always
+    environment:
+      CURRENCY_EXCHANGE_SERVICE_HOST: http://flask-app
+    depends_on:
+      - flask-app
+    networks:
+      - express-flask-network
+  
+# Networks to be created to facilitate communication between containers
+networks:
+  express-flask-network:
