@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: python-flask-rest-api
-  name: python-flask-rest-api
+    app: python-flask
+  name: python-flask
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: python-flask-rest-api
+      app: python-flask
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: python-flask-rest-api
+        app: python-flask
     spec:
       containers:
-      - image: shoaibmohmad/python-flask-app:0.0.1.RELEASE
+      - image: shoaibmohmad/python-flask-app:0.0.2.RELEASE
         imagePullPolicy: IfNotPresent
-        name: python-flask-app
+        name: python-flask
         resources:
           # limits:
           #   cpu: 500m
@@ -41,16 +41,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: python-flask-rest-api
-  name: python-flask-rest-api
+    app: python-flask
+  name: python-flask
   namespace: default
 spec:
   ports:
-  - port: 8081
+  - port: 8100
     protocol: TCP
     targetPort: 3100
   selector:
-    app: python-flask-rest-api
+    app: python-flask
   sessionAffinity: None
-  type: LoadBalancer
+  type: NodePort
 
