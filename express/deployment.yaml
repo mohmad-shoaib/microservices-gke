@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: node-express-rest-api
-  name: node-express-rest-api
+    app: node-express
+  name: node-express
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: node-express-rest-api
+      app: node-express
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: node-express-rest-api
+        app: node-express
     spec:
       containers:
-      - image: shoaibmohmad/node-express-app:0.0.1.RELEASE
+      - image: shoaibmohmad/node-express-app:0.0.2.RELEASE
         imagePullPolicy: IfNotPresent
-        name: python-flask-app
+        name: node-express
         resources:
           # limits:
           #   cpu: 500m
@@ -40,16 +40,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: node-express-rest-api
-  name: node-express-rest-api
+    app: node-express
+  name: node-express
   namespace: default
 spec:
   ports:
-  - port: 8080
+  - port: 8000
     protocol: TCP
     targetPort: 3000
   selector:
-    app: node-express-rest-api
+    app: node-express
   sessionAffinity: None
-  type: LoadBalancer
+  type: NodePort
 
