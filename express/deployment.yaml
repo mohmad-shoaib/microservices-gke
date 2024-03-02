@@ -23,7 +23,7 @@ spec:
       containers:
       - image: shoaibmohmad/node-express-app:0.0.1.RELEASE
         imagePullPolicy: IfNotPresent
-        name: python-flask-app
+        name: node-express-app
         resources:
           # limits:
           #   cpu: 500m
