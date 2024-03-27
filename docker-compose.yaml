@@ -14,7 +14,7 @@ services:
       - "3000:3000"
     restart: always
     environment:
-      FLASK_SERVICE_HOST: http://flask-app
+      FLASK_SERVICE_HOST: http://flask-app:3100
     depends_on:
       - flask-app
     networks:

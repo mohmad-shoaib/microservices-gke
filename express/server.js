@@ -8,9 +8,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/multiply/:number1/:number2', async (req, res) => {
-  // console.log(process.env.FLASK_SERVICE_HOST);
-  const baseUrl = process.env.FLASK_SERVICE_HOST != undefined ? process.env.FLASK_SERVICE_HOST : `http://localhost`;
-  const response = await fetch(`${baseUrl}:3100/multiple/${req.params.number1}/${req.params.number2}`);
+  console.log(process.env.FLASK_SERVICE_HOST);
+  const baseUrl = process.env.FLASK_SERVICE_HOST != undefined ? process.env.FLASK_SERVICE_HOST : `http://localhost:3100`;
+  console.log(baseUrl);
+  const response = await fetch(`${baseUrl}/multiple/${req.params.number1}/${req.params.number2}`);
   const output = await response.json();
   res.send(`Result: ${output.result}`);
 });

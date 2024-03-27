@@ -22,17 +22,39 @@ spec:
     spec:
       containers:
       - image: shoaibmohmad/node-express-app:0.0.2.RELEASE
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: node-express
-        resources:
+        env:
+          - name: FLASK_SERVICE_HOST
+          #   value: http://python-flask:8100
+            valueFrom: 
+              configMapKeyRef:
+                key: FLASK_SERVICE_HOST
+                name: node-express-config-map
+        # ports:
+        # - name: liveness-port
+        #   containerPort: 8000
+        # resources: #CHANGE
+          # requests:
+          #   cpu: 100m
+          #   memory: 512Mi
           # limits:
           #   cpu: 500m
-          #   ephemeral-storage: 1Gi
-          #   memory: 2Gi
-          # requests:
-          #   cpu: 500m
-          #   ephemeral-storage: 1Gi
-          #   memory: 2Gi
+          #   memory: 1024Mi #256Mi 
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: liveness-port
+        #   failureThreshold: 5
+        #   periodSeconds: 10
+        #   initialDelaySeconds: 60
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: liveness-port
+        #   failureThreshold: 5
+        #   periodSeconds: 10
+        #   initialDelaySeconds: 60
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
 ---
